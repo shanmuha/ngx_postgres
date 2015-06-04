@@ -60,11 +60,9 @@ ngx_postgres_upstream_finalize_request(ngx_http_request_t *r,
         ngx_resolve_name_done(u->resolved->ctx);
         u->resolved->ctx = NULL;
     }
-
-    if (u->state && u->state->response_sec) {
+    if (u->state && u->state->response_time) { 
         tp = ngx_timeofday();
-        u->state->response_sec = tp->sec - u->state->response_sec;
-        u->state->response_msec = tp->msec - u->state->response_msec;
+        u->state->response_time = tp->msec - u->state->response_time; 
 
         if (u->pipe) {
             u->state->response_length = u->pipe->read_length;
